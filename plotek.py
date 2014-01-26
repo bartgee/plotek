@@ -13,7 +13,7 @@
 # 2014.01.26 - ver. 1.0
 # - first initial version
 
-import random, os, platform, sys
+import random, os, platform
 
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
@@ -83,7 +83,7 @@ def main():
                 running2 = True
                 while running2:
                     try:
-                        nums_to_draw = input('Podaj ilość typowanych liczb (1-10): ')
+                        nums_to_draw = input('Podaj ilość typowanych liczb (1-10 lub ENTER dla 10): ')
                         if nums_to_draw != '' and int(nums_to_draw) in range(1,11):
                             nums_to_draw = int(nums_to_draw)
                         if nums_to_draw == '':
@@ -93,10 +93,10 @@ def main():
                         elif nums_to_draw in range(1,11):
                             running2 = False
                     except:
-                        print('Wprowadzono błędne dane! default 10 for multi')
+                        print('Wprowadzono błędne dane!')
                     running = False
         except:        
-            print('Wprowadzono błędne dane! koniec petli')
+            print('Wprowadzono błędne dane!')
     running = True
     while running:
         try:
