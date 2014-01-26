@@ -47,9 +47,9 @@ def main():
         else:
                 os.system('clear')
 
-        print('************************')
-        print('* LOTTO 1.0 by bartgee *')
-        print('************************')
+        print('*************************')
+        print('* pLotek 1.0 by bartgee *')
+        print('*************************')
         print('1. Lotto')
         print('2. Mini Lotto')
         print('3. Multi Multi')
