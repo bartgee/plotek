@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-# pLotek 1.1
+# pLotek 2.0 beta
 # -*- coding: utf-8 -*-
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 # *** CHANGELOG ***
+#
+# 2014.01.27 - DEVEL VERSION 2.0 alpha !!!
+# - new functions are in my mind at the moment ;)
 #
 # 2014.01.26 - ver. 1.1
 # - added Multi Multi drawing options
