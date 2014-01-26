@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # pLotek 1.0
 # -*- coding: utf-8 -*-
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
