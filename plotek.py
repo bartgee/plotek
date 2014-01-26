@@ -4,15 +4,16 @@
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 # *** CHANGELOG ***
 #
-# 2014.04.26 - ver. 1.1
+# 2014.01.26 - ver. 1.1
 # - added Multi Multi drawing options
 # - drawed numbers are now stored in a list
 # - changed indents to Python standard coding standard (4 chars)
+# - added ENTER key as input for default options
 #
 # 2014.01.26 - ver. 1.0
 # - first initial version
 
-import random, os, platform
+import random, os, platform, sys
 
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
@@ -63,41 +64,61 @@ def main():
     print('1. Lotto')
     print('2. Mini Lotto')
     print('3. Multi Multi')
-    print('------------------------')
+    print('-------------------------')
     running = True
     while running:
         try:
-            gametype = int(input('Wybierz grę LOTTO (1,2 lub 3): '))
-            if gametype == 1 or gametype == 2:
-                    running = False
-                    nums_to_draw = ''
+            gametype = input('Wybierz grę LOTTO (1,2,3 lub ENTER dla LOTTO): ')
+            if gametype != '' and int(gametype) in range(1,4):
+                gametype = int(gametype)
+            if gametype == '':
+                gametype = 1
+                nums_to_draw = 6
+                running = False
+            elif gametype == 1 or gametype == 2:
+                      nums_to_draw = ''
+                      running = False
             elif gametype == 3:
+                running = False
                 running2 = True
                 while running2:
                     try:
-                        nums_to_draw = int(input('Podaj ilość typowanych liczb (1-10): '))
-                        if nums_to_draw in range(1,11):
+                        nums_to_draw = input('Podaj ilość typowanych liczb (1-10): ')
+                        if nums_to_draw != '' and int(nums_to_draw) in range(1,11):
+                            nums_to_draw = int(nums_to_draw)
+                        if nums_to_draw == '':
+                            nums_to_draw = 10
+                            print('Wybrano 10 liczb.')
+                            running2 = False
+                        elif nums_to_draw in range(1,11):
                             running2 = False
                     except:
-                        print('Wprowadzono błędne dane!')
+                        print('Wprowadzono błędne dane! default 10 for multi')
                     running = False
         except:        
-            print('Wprowadzono błędne dane!')
+            print('Wprowadzono błędne dane! koniec petli')
     running = True
     while running:
         try:
-            number_of_draws = int(input('Podaj ilość zakładów (od 1 do 20): '))
-            if number_of_draws in range(1, 21):
+            number_of_draws = input('Podaj ilość zakładów (od 1 do 20 lub ENTER dla 1): ')
+            if number_of_draws != '' and int(number_of_draws) in range(1,21):
+                number_of_draws = int(number_of_draws)
+            if number_of_draws == '':
+                number_of_draws = 1
+                print('Wybrano 1 zakład.')
                 running = False
-                print('------------------------')
+            elif number_of_draws in range(1, 21):
+                running = False
+            print('-------------------------')
         except:
                 print('Wprowadzono błędne dane!')
 
     drawnumbers(gametype, nums_to_draw, number_of_draws)
+
     restart = input('Nowe losowanie? UWAGA - wyniki ostatniego losowania zostaną utracone! (t/n): ')
-    if restart == 't':
-        if __name__ == '__main__':
-            main()
+    if restart == 't' or restart == '':
+            if __name__ == '__main__':
+                main()
 
 if __name__ == '__main__':
     main()
