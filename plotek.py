@@ -6,6 +6,10 @@
 #
 # 2014.01.27 - DEVEL VERSION 2.0 alpha !!!
 # - new functions are in my mind at the moment ;)
+# - working on historical LOTTO drawings usage:
+#   * download historical drawings data file from the Internet (done)
+#   * putting the data into some parse'able file - probably it will be CSV format (under construction)
+#   * choosing the ideas of usage (in the near future)
 #
 # 2014.01.26 - ver. 1.1
 # - added Multi Multi drawing options
@@ -16,7 +20,19 @@
 # 2014.01.26 - ver. 1.0
 # - first initial version
 
-import random, os, platform
+import random, os, platform, sys
+from urllib.request import urlopen
+
+def geturl(url):
+    ''' Gets the URL and saves it to file.
+
+    Full URL must be given as an argument.
+    '''
+    f = open('dl.txt', 'w')
+    for line in urlopen(url):
+        line = line.decode('utf-8')
+        f.write(line)
+    f.close()
 
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
@@ -68,6 +84,16 @@ def main():
     print('2. Mini Lotto')
     print('3. Multi Multi')
     print('-------------------------')
+
+    # testing code for lottery historical drawings
+    try:
+        print('Pobieranie bazy losowań LOTTO...')
+        geturl('http://www.mbnet.com.pl/dl.txt')
+        print('Pobrano bazę losowań :).')
+    except:
+        print('Błąd pobierania bazy losowań LOTTO!')
+    # testing code for lottery historical drawings
+    sys.exit(0)
     running = True
     while running:
         try:
