@@ -4,6 +4,9 @@
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 # *** CHANGELOG ***
 #
+# 2014.01.30 - ver. 1.2 testing
+# - code cleanup
+#
 # 2014.01.26 - ver. 1.1
 # - added Multi Multi drawing options
 # - drawed numbers are now stored in a list
@@ -14,6 +17,17 @@
 # - first initial version
 
 import random, os, platform
+
+def clearscreen():
+    ''' Clears the screen.
+
+    usage: clearscreen()
+    '''
+    os_platform = platform.system()
+    if os_platform == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
@@ -52,11 +66,8 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
 
 def main():
-    os_platform = platform.system()
-    if os_platform == 'Windows':
-        os.system('cls')
-    else:
-        os.system('clear')
+
+    clearscreen()
 
     print('*************************')
     print('* pLotek 1.0 by bartgee *')
