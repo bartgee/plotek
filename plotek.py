@@ -1,8 +1,11 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-# pLotek 1.1
+# pLotek 1.2
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 # *** CHANGELOG ***
+#
+# 2014.01.31 - ver. 1.2
+# - changed to Python2
 #
 # 2014.01.30 - ver. 1.2 testing
 # - code cleanup
@@ -73,7 +76,7 @@ def main():
     clearscreen()
 
     print u'*************************'
-    print u'* pLotek 1.1 by bartgee *'
+    print u'* pLotek 1.2 by bartgee *'
     print u'*      Python 2 version *'
     print u'*************************'
     print u'1. Lotto'
