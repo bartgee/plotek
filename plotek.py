@@ -13,7 +13,10 @@
 # 2014.01.26 - ver. 1.0
 # - first initial version
 
-import random, os, platform
+import random, os, platform, sys
+
+reload(sys)
+sys.setdefaultencoding('UTF-8')
 
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     u''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
@@ -59,7 +62,7 @@ def main():
         os.system(u'clear')
 
     print u'*************************'
-    print u'* pLotek 1.0 by bartgee *'
+    print u'* pLotek 1.1 by bartgee *'
     print u'*      Python 2 version *'
     print u'*************************'
     print u'1. Lotto'
@@ -94,10 +97,11 @@ def main():
                         elif nums_to_draw in xrange(1,11):
                             running2 = False
                     except:
-                        print u'Wprowadzono błędne dane!'
+                        print u'Wprowadzono błędne dane! 1'
                     running = False
         except:
-            print u'Wprowadzono błędne dane!'
+            print u'Wprowadzono błędne dane! 2'
+            #break
     running = True
     while running:
         try:
