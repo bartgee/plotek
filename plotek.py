@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 # pLotek 1.1
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
+#
 # *** CHANGELOG ***
+#
+# 2014.01.31 - ver. 1.2
+# - code cleanup
 #
 # 2014.01.30 - ver. 1.2 testing
 # - code cleanup
@@ -70,7 +74,7 @@ def main():
     clearscreen()
 
     print('*************************')
-    print('* pLotek 1.0 by bartgee *')
+    print('* pLotek 1.2 by bartgee *')
     print('*************************')
     print('1. Lotto')
     print('2. Mini Lotto')
