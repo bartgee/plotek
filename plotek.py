@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# pLotek 1.1
 # -*- coding: utf-8 -*-
+# pLotek 1.1
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 # *** CHANGELOG ***
 #
@@ -35,7 +35,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
     The two values must be integers.
     '''
-            
+
     num_start = 1
     if gametype == 1:
         game_name = 'Lotto'
@@ -106,7 +106,7 @@ def main():
                     except:
                         print('Wprowadzono błędne dane!')
                     running = False
-        except:        
+        except:
             print('Wprowadzono błędne dane!')
     running = True
     while running:
