@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # pLotek 2.0 beta
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
+#
+# CHANGELOG moved to external file
 
 import random, os, platform, sys
 try:
@@ -10,24 +12,19 @@ try:
 except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
-#dl = 'dl_razem.txt'
-#ml = 'el.txt'
-#mm = 'ml.txt'
 
-gamealiases = {'dl' : 'dl_razem.txt', 'ml' : 'el.txt', 'mm' : 'ml.txt'}
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
 
     Full URL must be given as an argument.
     '''
-    f = open(url, 'w')
+    f = open(filename, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
         f.write(line)
     f.close()
-    #return gamealias
-    print('url:' + url)
+
 
 def dbdownload(gamealias):
     ''' Downloads LOTTO database in text format from mbnet.com.pl
@@ -37,16 +34,34 @@ def dbdownload(gamealias):
     - ml: for Mini Lotto
     - mm: for Multi Multi
     '''
-    #plik = gamealias
-    #if plik == gamealiases['dl']:
+    if gamealias == 'dl':
+        gamename = 'Lotto'
+    elif gamealias == 'ml':
+        gamename = 'Mini Lotto'
+    else:
+        gamename =  'Multi Multi'
+    filename = gamealiases[gamealias]
     try:
         print('Pobieranie bazy losowań LOTTO...')
-        url = ('http://www.mbnet.com.pl/' + gamealias)
+        url = ('http://www.mbnet.com.pl/' + filename)
         geturl(url)
-        print('Pobrano bazę losowań :).')
+        print('Pobrano bazę losowań ' + gamename + ' :).')
     except:
-        print('Błąd pobierania bazy losowań LOTTO!')
-        print(gamealias)
+        print('Błąd pobierania bazy losowań ' + gamename + '!')
+
+
+def alldbdownload():
+    ''' Download all LOTTO databases
+    '''
+    global gamealiases
+    global gamealias
+    global filename
+    gamealiases = {'dl': 'dl_razem.txt', 'ml': 'el.txt', 'mm': 'ml.txt'}
+    for gamealias, filename in gamealiases.items():
+        dbdownload(gamealias)
+    continuegame = input('Wciśnij ENTER: ')
+    return
+
 
 def clearscreen():
     ''' Clears the screen.
@@ -58,6 +73,7 @@ def clearscreen():
         os.system('cls')
     else:
         os.system('clear')
+
 
 def printheader():
     ''' Prints the app header
@@ -71,8 +87,9 @@ def printheader():
     print('3. Multi Multi')
     print('-------------------------------')
 
+
 def gameselect():
-    ''' returns a game name selected by user
+    ''' returns a game name, numbers to draw and number of draws selected by user
     '''
     global gametype
     global nums_to_draw
@@ -81,6 +98,9 @@ def gameselect():
     while running:
         try:
             gametype = input('Wybierz grę LOTTO (1,2,3 lub ENTER dla LOTTO): ')
+            if gametype == 'u':
+                running = False
+                return gametype
             if gametype != '' and int(gametype) in range(1,4):
                 gametype = int(gametype)
             if gametype == '':
@@ -110,6 +130,8 @@ def gameselect():
         except:
             print('Wprowadzono błędne dane!')
     running = True
+    if gametype == 'u':
+        exit
     while running:
         try:
             number_of_draws = input('Podaj ilość zakładów (od 1 do 20 lub ENTER dla 1): ')
@@ -126,13 +148,13 @@ def gameselect():
                 print('Wprowadzono błędne dane!')
     return gametype, nums_to_draw, number_of_draws
 
+
 def drawnumbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
     threee of them - Lotto, Mini Lotto and Multi Multi
 
     The two values must be integers.
     '''
-
     num_start = 1
     if gametype == 1:
         game_name = 'Lotto'
@@ -162,30 +184,37 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         nums_all = nums_all[:-1]
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
 
+
 def restartgame():
     restart = ''
     restart = input('Nowe losowanie? UWAGA - wyniki ostatniego losowania zostaną utracone! (t/n): ')
     if restart == 't' or restart == '':
-            if __name__ == '__main__':
-                main()
-            else:
-                sys.exit(0)
+        main()
+    else:
+        sys.exit(0)
+
+
+def draworupdate():
+    ''' Checks whether the user chose to update drawing databases
+    '''
+    if gametype == 'u':
+        clearscreen()
+        alldbdownload()
+        main()
+    else:
+        drawnumbers(gametype, nums_to_draw, number_of_draws)
+        restartgame()
+
 
 def main():
-
     clearscreen()
     printheader()
     # testing code for lottery historical drawings
-    #gamealias = gamealiases['dl']
-    game = 0
-    #for game in getailases
-    gamealias = gamealiases['dl']
-    dbdownload(gamealias)
+    #alldbdownload()
     #sys.exit(0)
     # testing code for lottery historical drawings
     gameselect()
-    drawnumbers(gametype, nums_to_draw, number_of_draws)
-    restartgame()
+    draworupdate()
 
 if __name__ == '__main__':
     main()
