@@ -23,11 +23,15 @@ except ImportError:
 def readdbfile(filename):
     ''' Reads the CSV file with space as a delimiter
     '''
+    global drawedbefore
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         input('nadus enter!')
         data=[tuple(row) for row in reader]
-        print(data[3])
+        index = 0
+        for i in data:
+            print('liczby: ' + data[index][2])
+            index = index + 1
 
 
 def geturl(url):
