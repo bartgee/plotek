@@ -5,13 +5,29 @@
 #
 # CHANGELOG moved to external file
 
-import random, os, platform, sys
+import random, os, platform, sys, csv
+#from array import array
+
 try:
     # For Python 3.0 and later
     from urllib.request import urlopen
 except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
+
+#class draw:
+
+    #def __init__(self):
+
+
+def readdbfile(filename):
+    ''' Reads the CSV file with space as a delimiter
+    '''
+    with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
+        reader = csv.reader(csvfile, delimiter=' ')
+        input('nadus enter!')
+        data=[tuple(row) for row in reader]
+        print(data[3])
 
 
 def geturl(url):
@@ -209,6 +225,10 @@ def draworupdate():
 def main():
     clearscreen()
     printheader()
+    # code for parsing csv files
+    readdbfile('dl_razem.txt')
+    sys.exit()
+    # code for parsing csv files
     # testing code for lottery historical drawings
     #alldbdownload()
     #sys.exit(0)
