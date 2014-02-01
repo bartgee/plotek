@@ -131,7 +131,7 @@ def gameselect():
             print('Wprowadzono błędne dane!')
     running = True
     if gametype == 'u':
-        exit
+        return
     while running:
         try:
             number_of_draws = input('Podaj ilość zakładów (od 1 do 20 lub ENTER dla 1): ')
