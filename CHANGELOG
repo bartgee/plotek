@@ -1,0 +1,26 @@
+i# *** CHANGELOG ***
+#
+# 2014.02.01 - ver 2.0 BETA!
+# - moved all the code from main() to separate functions
+#
+# 2014.01.31 - ver. 1.2
+# - code cleanup
+#
+# 2014.01.30 - ver. 1.2 testing
+# - code cleanup
+#
+# 2014.01.27 - DEVEL VERSION 2.0 alpha !!!
+# - new functions are in my mind at the moment ;)
+# - working on historical LOTTO drawings usage:
+#   * download historical drawings data file from the Internet (done)
+#   * putting the data into some parse'able file - probably it will be CSV format (under construction)
+#   * choosing the ideas of usage (in the near future)
+#
+# 2014.01.26 - ver. 1.1
+# - added Multi Multi drawing options
+# - drawed numbers are now stored in a list
+# - changed indents to Python standard coding standard (4 chars)
+# - added ENTER key as input for default options
+#
+# 2014.01.26 - ver. 1.0
+# - first initial version

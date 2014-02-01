@@ -1,99 +1,82 @@
 #!/usr/bin/env python3
-# pLotek 2.0 beta
 # -*- coding: utf-8 -*-
+# pLotek 2.0 beta
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
-# *** CHANGELOG ***
-#
-# 2014.01.27 - DEVEL VERSION 2.0 alpha !!!
-# - new functions are in my mind at the moment ;)
-# - working on historical LOTTO drawings usage:
-#   * download historical drawings data file from the Internet (done)
-#   * putting the data into some parse'able file - probably it will be CSV format (under construction)
-#   * choosing the ideas of usage (in the near future)
-#
-# 2014.01.26 - ver. 1.1
-# - added Multi Multi drawing options
-# - drawed numbers are now stored in a list
-# - changed indents to Python standard coding standard (4 chars)
-# - added ENTER key as input for default options
-#
-# 2014.01.26 - ver. 1.0
-# - first initial version
 
 import random, os, platform, sys
-from urllib.request import urlopen
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
+#dl = 'dl_razem.txt'
+#ml = 'el.txt'
+#mm = 'ml.txt'
+
+gamealiases = {'dl' : 'dl_razem.txt', 'ml' : 'el.txt', 'mm' : 'ml.txt'}
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
 
     Full URL must be given as an argument.
     '''
-    f = open('dl.txt', 'w')
+    f = open(url, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
         f.write(line)
     f.close()
+    #return gamealias
+    print('url:' + url)
 
-def drawnumbers(gametype, nums_to_draw, number_of_draws):
-    ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
-    threee of them - Lotto, Mini Lotto and Multi Multi
+def dbdownload(gamealias):
+    ''' Downloads LOTTO database in text format from mbnet.com.pl
 
-    The two values must be integers.
+    The argument is gamealias:
+    - dl: for Lotto
+    - ml: for Mini Lotto
+    - mm: for Multi Multi
     '''
-            
-    num_start = 1
-    if gametype == 1:
-        game_name = 'Lotto'
-        num_end = 49
-        nums_to_draw = 6
-    if gametype == 2:
-        game_name = 'Mini Lotto'
-        num_end = 42
-        nums_to_draw = 5
-    if gametype == 3:
-        game_name = 'Multi Multi'
-        num_end = 80
-    num_range = range(num_start,num_end)
-    nums_all = ''
-    draw = number_of_draws
-    for draw in range(1, draw+1):
-        nums_drawed = random.sample(num_range, nums_to_draw)
-        nums_list = []
-        for num in nums_drawed:
-                nums_list.append(num)
+    #plik = gamealias
+    #if plik == gamealiases['dl']:
+    try:
+        print('Pobieranie bazy losowań LOTTO...')
+        url = ('http://www.mbnet.com.pl/' + gamealias)
+        geturl(url)
+        print('Pobrano bazę losowań :).')
+    except:
+        print('Błąd pobierania bazy losowań LOTTO!')
+        print(gamealias)
 
-        nums_list.sort()
-        nums_all = ''
-        for item in nums_list:
-                nums_all = nums_all + str(item) + ','
+def clearscreen():
+    ''' Clears the screen.
 
-        nums_all = nums_all[:-1]
-        print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-
-def main():
+    usage: clearscreen()
+    '''
     os_platform = platform.system()
     if os_platform == 'Windows':
         os.system('cls')
     else:
         os.system('clear')
 
-    print('*************************')
-    print('* pLotek 1.0 by bartgee *')
-    print('*************************')
+def printheader():
+    ''' Prints the app header
+    '''
+    print('*******************************')
+    print('* pLotek 2.0 BETA! by bartgee *')
+    print('*******************************')
+    print('u - aktualizacja baz losowań')
     print('1. Lotto')
     print('2. Mini Lotto')
     print('3. Multi Multi')
-    print('-------------------------')
+    print('-------------------------------')
 
-    # testing code for lottery historical drawings
-    try:
-        print('Pobieranie bazy losowań LOTTO...')
-        geturl('http://www.mbnet.com.pl/dl.txt')
-        print('Pobrano bazę losowań :).')
-    except:
-        print('Błąd pobierania bazy losowań LOTTO!')
-    # testing code for lottery historical drawings
-    sys.exit(0)
+def gameselect():
+    ''' returns a game name selected by user
+    '''
+    global gametype
+    global nums_to_draw
+    global number_of_draws
     running = True
     while running:
         try:
@@ -124,7 +107,7 @@ def main():
                     except:
                         print('Wprowadzono błędne dane!')
                     running = False
-        except:        
+        except:
             print('Wprowadzono błędne dane!')
     running = True
     while running:
@@ -138,16 +121,71 @@ def main():
                 running = False
             elif number_of_draws in range(1, 21):
                 running = False
-            print('-------------------------')
+            print('-------------------------------')
         except:
                 print('Wprowadzono błędne dane!')
+    return gametype, nums_to_draw, number_of_draws
 
-    drawnumbers(gametype, nums_to_draw, number_of_draws)
+def drawnumbers(gametype, nums_to_draw, number_of_draws):
+    ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
+    threee of them - Lotto, Mini Lotto and Multi Multi
 
+    The two values must be integers.
+    '''
+
+    num_start = 1
+    if gametype == 1:
+        game_name = 'Lotto'
+        num_end = 49
+        nums_to_draw = 6
+    if gametype == 2:
+        game_name = 'Mini Lotto'
+        num_end = 42
+        nums_to_draw = 5
+    if gametype == 3:
+        game_name = 'Multi Multi'
+        num_end = 80
+    num_range = range(num_start,num_end)
+    nums_all = ''
+    draw = number_of_draws
+    for draw in range(1, draw+1):
+        nums_drawed = random.sample(num_range, nums_to_draw)
+        nums_list = []
+        for num in nums_drawed:
+                nums_list.append(num)
+
+        nums_list.sort()
+        nums_all = ''
+        for item in nums_list:
+                nums_all = nums_all + str(item) + ','
+
+        nums_all = nums_all[:-1]
+        print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
+
+def restartgame():
+    restart = ''
     restart = input('Nowe losowanie? UWAGA - wyniki ostatniego losowania zostaną utracone! (t/n): ')
     if restart == 't' or restart == '':
             if __name__ == '__main__':
                 main()
+            else:
+                sys.exit(0)
+
+def main():
+
+    clearscreen()
+    printheader()
+    # testing code for lottery historical drawings
+    #gamealias = gamealiases['dl']
+    game = 0
+    #for game in getailases
+    gamealias = gamealiases['dl']
+    dbdownload(gamealias)
+    #sys.exit(0)
+    # testing code for lottery historical drawings
+    gameselect()
+    drawnumbers(gametype, nums_to_draw, number_of_draws)
+    restartgame()
 
 if __name__ == '__main__':
     main()
