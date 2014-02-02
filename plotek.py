@@ -23,9 +23,10 @@ except ImportError:
 def readdbfile(filename):
     ''' Reads the CSV file with space as a delimiter
     '''
+    #global nums_list
     global drawedbefore
     global newdraw
-    global drawed
+    global database
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         input('nadus enter!')
@@ -34,23 +35,26 @@ def readdbfile(filename):
         index = 0
         for i in data:
             #drawed = print('liczby: ' + data[index][2])
-            drawed = data[index][2]
+            database = data[index][2]
             day = data[index][1]
             if index < len(data)-1:
                 index = index + 1
-            #print(data)
+#
+            common_nums = []
+            #nums_list = []
+            for element in nums_list:
+                if str(element) in database:
+                    common_nums.append(element)
+            print('common_nums: ', common_nums)
+                    #print(data)
             #return
-
-            #print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + data[index][2])
-            if drawed == nums_all: # doesn't work on Multi Multi game - need to think it over ;)
-                print('wylosowano juz wygrany zestaw!: ')
-                print('z funkcji readdbfile: wybrałeś: ' + nums_all + '; losowania historyczne: ' + drawed + ' z dnia '+ day )
-                newdraw = False
-                #return
-            else:
-                newdraw = True
-                #print('wylosowano nowy zestaw')
-    return newdraw
+#
+            print('dlugosc listy wspolnej: ', len(common_nums))
+            if len(common_nums) == 6:
+                print('Trafione!!!')
+            print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + database)
+            input('klepnij ENTER')
+    return database
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
@@ -227,15 +231,11 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
                 nums_all = nums_all + str(item) + ','
 
         nums_all = nums_all[:-1]
-        computerbet = nums_all
-        nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
-        if nums_all == '':
-            nums_all = computerbet
+        #computerbet = nums_all
+        #nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
+        #if nums_all == '':
+        #    nums_all = computerbet
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
-        readdbfile(gamefile)
-        if newdraw == True:
-            print('wylosowano nowy zestaw')
     return nums_all, nums_list
 
 def restartgame():
@@ -267,9 +267,59 @@ def main():
     #readdbfile('dl_razem.txt')
     #sys.exit()
     # /code for parsing csv files
+
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
+            #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
+    global nums_all
+    global nums_list
+    global nums_drawed
+    nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
+    nums_drawed = nums_all.split(',')
+    #for item in nums_drawed:
+        #int(item)
+        #print(item)
+    nums_drawed = [ int(item) for item in nums_drawed ]
+    print('po konwersji do int:')
+    for item in nums_drawed:
+        print(item)
+    #nums_drawed = random.sample(num_range, nums_to_draw)
+    nums_list = []
+    for num in nums_drawed:
+        nums_list.append(num)
+        nums_list.sort()
+    print('nums_list:', nums_list)
+    #sys.exit(0)
+    #readdbfile(gamefile)
+    readdbfile('dl_razem.txt')
+    print('koniec fukcji readdbfile')
+    sys.exit(0)
+
+
+
+    print('database: ', database)
+    #nums_list_set = set(nums_list)
+    #database_set = set(database)
+    common_nums = []
+    for element in nums_list:
+        if str(element) in database:
+            common_nums.append(element)
+    print('common_nums: ', common_nums)
+    sys.exit(0)
+
+
+
+    if nums_list in database: # doesn't work on Multi Multi game - need to think it over ;)
+        print('wylosowano juz wygrany zestaw!: ')
+        print('z funkcji readdbfile: wybrałeś: ' + nums_all + '; losowania historyczne: ' + drawed + ' z dnia '+ day )
+        newdraw = False
+        #return
+    else:
+        newdraw = True
+        print('wylosowano nowy zestaw')
+        #if newdraw == True:
+        #    print('wylosowano nowy zestaw')
     #global nums_all
     #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
     #readdbfile('dl_razem.txt')
