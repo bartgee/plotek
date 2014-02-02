@@ -218,6 +218,8 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
         nums_all = nums_all[:-1]
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
+        #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
+        readdbfile('dl_razem.txt')
     return nums_all
 
 def restartgame():
@@ -253,8 +255,8 @@ def main():
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
     global nums_all
-    nums_all = input('losuj sam 6 z 49 podaj typie!: ')
-    readdbfile('dl_razem.txt')
+    #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
+    #readdbfile('dl_razem.txt')
     restartgame()
 
 if __name__ == '__main__':
