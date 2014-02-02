@@ -50,7 +50,7 @@ def readdbfile(filename):
             #return
 #
             print('dlugosc listy wspolnej: ', len(common_nums))
-            if len(common_nums) == 6:
+            if len(common_nums) == nums_to_draw:
                 print('Trafione!!!')
             print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + database)
             input('klepnij ENTER')
@@ -291,8 +291,9 @@ def main():
         nums_list.sort()
     print('nums_list:', nums_list)
     #sys.exit(0)
-    #readdbfile(gamefile)
-    readdbfile('dl_razem.txt')
+    #readdbfile(gamefile) #z tego korzystamy!
+    readdbfile('ml.txt')
+    #readdbfile('dl_razem.txt')
     print('koniec fukcji readdbfile')
     sys.exit(0)
 
