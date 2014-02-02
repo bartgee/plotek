@@ -27,11 +27,25 @@ def readdbfile(filename):
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         input('nadus enter!')
-        data=[tuple(row) for row in reader]
+
+        data = [tuple(row) for row in reader]
         index = 0
         for i in data:
-            print('liczby: ' + data[index][2])
-            index = index + 1
+            #drawed = print('liczby: ' + data[index][2])
+            drawed = data[index][2]
+            day = data[index][1]
+            if index < len(data)-1:
+                index = index + 1
+            #print(data)
+            #return
+
+            #print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + data[index][2])
+            if nums_all == drawed:
+                print('wylosowano juz wygrany zestaw!: ')
+                print('z funkcji readdbfile: wybrałeś: ' + nums_all + '; losowania historyczne: ' + drawed + ' z dnia '+ day )
+                return
+            #else:
+                #print('wylosowano nowy zestaw')
 
 
 def geturl(url):
@@ -188,6 +202,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         game_name = 'Multi Multi'
         num_end = 80
     num_range = range(num_start,num_end)
+    global nums_all
     nums_all = ''
     draw = number_of_draws
     for draw in range(1, draw+1):
@@ -203,7 +218,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
         nums_all = nums_all[:-1]
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-
+    return nums_all
 
 def restartgame():
     restart = ''
@@ -221,24 +236,26 @@ def draworupdate():
         clearscreen()
         alldbdownload()
         main()
-    else:
-        drawnumbers(gametype, nums_to_draw, number_of_draws)
-        restartgame()
+#    else:
+#        drawnumbers(gametype, nums_to_draw, number_of_draws)
+#        readdbfile('dl_razem.txt')
+#        restartgame()
 
 
 def main():
     clearscreen()
     printheader()
     # code for parsing csv files
-    readdbfile('dl_razem.txt')
-    sys.exit()
-    # code for parsing csv files
-    # testing code for lottery historical drawings
-    #alldbdownload()
-    #sys.exit(0)
-    # testing code for lottery historical drawings
+    #readdbfile('dl_razem.txt')
+    #sys.exit()
+    # /code for parsing csv files
     gameselect()
     draworupdate()
+    drawnumbers(gametype, nums_to_draw, number_of_draws)
+    global nums_all
+    nums_all = input('losuj sam 6 z 49 podaj typie!: ')
+    readdbfile('dl_razem.txt')
+    restartgame()
 
 if __name__ == '__main__':
     main()
