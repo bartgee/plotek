@@ -24,6 +24,8 @@ def readdbfile(filename):
     ''' Reads the CSV file with space as a delimiter
     '''
     global drawedbefore
+    global newdraw
+    global drawed
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         input('nadus enter!')
@@ -40,13 +42,15 @@ def readdbfile(filename):
             #return
 
             #print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + data[index][2])
-            if nums_all == drawed:
+            if drawed == nums_all: # doesn't work on Multi Multi game - need to think it over ;)
                 print('wylosowano juz wygrany zestaw!: ')
                 print('z funkcji readdbfile: wybrałeś: ' + nums_all + '; losowania historyczne: ' + drawed + ' z dnia '+ day )
-                return
-            #else:
+                newdraw = False
+                #return
+            else:
+                newdraw = True
                 #print('wylosowano nowy zestaw')
-
+    return newdraw
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
@@ -189,17 +193,23 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
     The two values must be integers.
     '''
+    global gamefile
+    global nums_all
+    global nums_list
     num_start = 1
     if gametype == 1:
         game_name = 'Lotto'
+        gamefile = 'dl_razem.txt'
         num_end = 49
         nums_to_draw = 6
     if gametype == 2:
         game_name = 'Mini Lotto'
+        gamefile = 'el.txt'
         num_end = 42
         nums_to_draw = 5
     if gametype == 3:
         game_name = 'Multi Multi'
+        gamefile = 'ml.txt'
         num_end = 80
     num_range = range(num_start,num_end)
     global nums_all
@@ -217,10 +227,16 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
                 nums_all = nums_all + str(item) + ','
 
         nums_all = nums_all[:-1]
+        computerbet = nums_all
+        nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
+        if nums_all == '':
+            nums_all = computerbet
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
         #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
-        readdbfile('dl_razem.txt')
-    return nums_all
+        readdbfile(gamefile)
+        if newdraw == True:
+            print('wylosowano nowy zestaw')
+    return nums_all, nums_list
 
 def restartgame():
     restart = ''
@@ -254,7 +270,7 @@ def main():
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
-    global nums_all
+    #global nums_all
     #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
     #readdbfile('dl_razem.txt')
     restartgame()
