@@ -46,7 +46,7 @@ def comparedbfile(filename):
             common_nums = []
             common_nums = frozenset(nums_list).intersection(database) # compare drawed numbers with database
             common_nums = list(common_nums)
-            sorted(common_nums)
+            common_nums.sort()
             match = len(common_nums) == len(nums_list)
             if match == True:
                 matchcount = matchcount + 1
