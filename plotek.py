@@ -20,41 +20,48 @@ except ImportError:
     #def __init__(self):
 
 
-def readdbfile(filename):
+def comparedbfile(filename):
     ''' Reads the CSV file with space as a delimiter
     '''
-    #global nums_list
-    global drawedbefore
-    global newdraw
+    global nums_list
     global database
+    global matchcount, dbrowcount, dayzero
+    data = []
+    database = []
+    matchcount = 0
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
-        input('nadus enter!')
-
         data = [tuple(row) for row in reader]
         index = 0
         for i in data:
-            #drawed = print('liczby: ' + data[index][2])
             database = data[index][2]
             day = data[index][1]
+            dayzero = data[0][1]
+            dbrowcount = len(data)
             if index < len(data)-1:
                 index = index + 1
-#
+            database = database.split(',')
+            list(database)
+            database = [int(item) for item in database]
             common_nums = []
-            #nums_list = []
-            for element in nums_list:
-                if str(element) in database:
-                    common_nums.append(element)
-            print('common_nums: ', common_nums)
-                    #print(data)
-            #return
-#
-            print('dlugosc listy wspolnej: ', len(common_nums))
-            if len(common_nums) == nums_to_draw:
-                print('Trafione!!!')
-            print('z funkcji readdbfile: nums_all: ' + nums_all + '; losowania historyczne: ' + database)
-            input('klepnij ENTER')
-    return database
+            common_nums = frozenset(nums_list).intersection(database) # compare drawed numbers with database
+            #print('database[0]=' + str(database))
+            #print('nums_list=' + str(nums_list))
+            common_nums = list(common_nums)
+            sorted(common_nums)
+            match = len(common_nums) == len(nums_list)
+            #global matchcount
+            #matchcount = 0
+            if match == True:
+                matchcount = matchcount + 1
+                #print('Ilość dopasowań: ' + str(len(common_nums)))
+                print('Liczby: ', common_nums)
+                print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
+                print('Wynik losowania: ' + str(database))
+                #input('ENTER')
+    #if matchcount > 0:
+        #print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    return matchcount, dbrowcount, dayzero
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
@@ -197,6 +204,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
     The two values must be integers.
     '''
+    global game_name
     global gamefile
     global nums_all
     global nums_list
@@ -236,6 +244,9 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         #if nums_all == '':
         #    nums_all = computerbet
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
+        #comparetest()
+        comparedbfile(gamefile)
+        #nums_list = []
     return nums_all, nums_list
 
 def restartgame():
@@ -260,70 +271,40 @@ def draworupdate():
 #        restartgame()
 
 
-def main():
-    clearscreen()
-    printheader()
-    # code for parsing csv files
-    #readdbfile('dl_razem.txt')
-    #sys.exit()
-    # /code for parsing csv files
-
-    gameselect()
-    draworupdate()
-    drawnumbers(gametype, nums_to_draw, number_of_draws)
-            #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
+def comparetest():
+    ''' This function is just for manual comparing drawed numbers
+        with historical from database
+    '''
     global nums_all
     global nums_list
     global nums_drawed
-    nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
+    nums_all = input('wygraj sam 6 z 49 - podaj ręcznie: ')
     nums_drawed = nums_all.split(',')
-    #for item in nums_drawed:
-        #int(item)
-        #print(item)
     nums_drawed = [ int(item) for item in nums_drawed ]
     print('po konwersji do int:')
     for item in nums_drawed:
         print(item)
-    #nums_drawed = random.sample(num_range, nums_to_draw)
     nums_list = []
     for num in nums_drawed:
         nums_list.append(num)
-        nums_list.sort()
-    print('nums_list:', nums_list)
+    nums_list.sort()
+    #print('nums_list:', nums_list)
+    comparedbfile(gamefile) # we're only using this in the rest of the code!
+    #drawnumbers(gametype, nums_to_draw, number_of_draws)
+    #comparedbfile('ml.txt')
+    #comparedbfile('dl_razem.txt')
+    print('koniec fukcji comparedbtest()')
     #sys.exit(0)
-    #readdbfile(gamefile) #z tego korzystamy!
-    readdbfile('ml.txt')
-    #readdbfile('dl_razem.txt')
-    print('koniec fukcji readdbfile')
-    sys.exit(0)
+    #return nums_list
 
-
-
-    print('database: ', database)
-    #nums_list_set = set(nums_list)
-    #database_set = set(database)
-    common_nums = []
-    for element in nums_list:
-        if str(element) in database:
-            common_nums.append(element)
-    print('common_nums: ', common_nums)
-    sys.exit(0)
-
-
-
-    if nums_list in database: # doesn't work on Multi Multi game - need to think it over ;)
-        print('wylosowano juz wygrany zestaw!: ')
-        print('z funkcji readdbfile: wybrałeś: ' + nums_all + '; losowania historyczne: ' + drawed + ' z dnia '+ day )
-        newdraw = False
-        #return
-    else:
-        newdraw = True
-        print('wylosowano nowy zestaw')
-        #if newdraw == True:
-        #    print('wylosowano nowy zestaw')
-    #global nums_all
-    #nums_all = input('losuj sam 6 z 49 podaj typie!: ')
-    #readdbfile('dl_razem.txt')
+def main():
+    clearscreen()
+    printheader()
+    gameselect()
+    draworupdate()
+    drawnumbers(gametype, nums_to_draw, number_of_draws)
+    print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    #comparetest()
     restartgame()
 
 if __name__ == '__main__':
