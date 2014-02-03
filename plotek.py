@@ -22,13 +22,13 @@ except ImportError:
 
 def comparedbfile(filename):
     ''' Reads the CSV file with space as a delimiter
+        and then compares actual draw with historical draws database.
+        It also prints matches and counts them.
     '''
-    global nums_list
-    global database
-    global matchcount, dbrowcount, dayzero
+    global nums_list, database, matchcount, dbrowcount, dayzero
     data = []
     database = []
-    matchcount = 0
+    #matchcount = 0
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         data = [tuple(row) for row in reader]
@@ -45,13 +45,9 @@ def comparedbfile(filename):
             database = [int(item) for item in database]
             common_nums = []
             common_nums = frozenset(nums_list).intersection(database) # compare drawed numbers with database
-            #print('database[0]=' + str(database))
-            #print('nums_list=' + str(nums_list))
             common_nums = list(common_nums)
             sorted(common_nums)
             match = len(common_nums) == len(nums_list)
-            #global matchcount
-            #matchcount = 0
             if match == True:
                 matchcount = matchcount + 1
                 #print('Ilość dopasowań: ' + str(len(common_nums)))
@@ -59,8 +55,6 @@ def comparedbfile(filename):
                 print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
                 print('Wynik losowania: ' + str(database))
                 #input('ENTER')
-    #if matchcount > 0:
-        #print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
     return matchcount, dbrowcount, dayzero
 
 def geturl(url):
@@ -102,9 +96,7 @@ def dbdownload(gamealias):
 def alldbdownload():
     ''' Download all LOTTO databases
     '''
-    global gamealiases
-    global gamealias
-    global filename
+    global gamealiases, gamealias, filename
     gamealiases = {'dl': 'dl_razem.txt', 'ml': 'el.txt', 'mm': 'ml.txt'}
     for gamealias, filename in gamealiases.items():
         dbdownload(gamealias)
@@ -140,9 +132,8 @@ def printheader():
 def gameselect():
     ''' returns a game name, numbers to draw and number of draws selected by user
     '''
-    global gametype
-    global nums_to_draw
-    global number_of_draws
+    global gametype, nums_to_draw, number_of_draws, matchcount
+    matchcount = 0
     running = True
     while running:
         try:
@@ -204,10 +195,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
     The two values must be integers.
     '''
-    global game_name
-    global gamefile
-    global nums_all
-    global nums_list
+    global game_name, gamefile, nums_all, nums_list
     num_start = 1
     if gametype == 1:
         game_name = 'Lotto'
@@ -224,7 +212,6 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         gamefile = 'ml.txt'
         num_end = 80
     num_range = range(num_start,num_end)
-    global nums_all
     nums_all = ''
     draw = number_of_draws
     for draw in range(1, draw+1):
@@ -239,14 +226,8 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
                 nums_all = nums_all + str(item) + ','
 
         nums_all = nums_all[:-1]
-        #computerbet = nums_all
-        #nums_all = input('wygraj sam 6 z 49 - podaj typie ręcznie!: ')
-        #if nums_all == '':
-        #    nums_all = computerbet
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        #comparetest()
         comparedbfile(gamefile)
-        #nums_list = []
     return nums_all, nums_list
 
 def restartgame():
@@ -275,9 +256,7 @@ def comparetest():
     ''' This function is just for manual comparing drawed numbers
         with historical from database
     '''
-    global nums_all
-    global nums_list
-    global nums_drawed
+    global nums_all, nums_list, nums_drawed
     nums_all = input('wygraj sam 6 z 49 - podaj ręcznie: ')
     nums_drawed = nums_all.split(',')
     nums_drawed = [ int(item) for item in nums_drawed ]
@@ -297,13 +276,20 @@ def comparetest():
     #sys.exit(0)
     #return nums_list
 
+
+def printmatches():
+    ''' Prints matches if they occured in draws.
+    '''
+    print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+
+
 def main():
     clearscreen()
     printheader()
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
-    print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    printmatches()
     #comparetest()
     restartgame()
 
