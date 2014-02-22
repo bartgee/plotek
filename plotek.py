@@ -17,10 +17,19 @@ except ImportError:
     from urllib2 import urlopen
 
 
-def chanses():
+def chances():
     ''' How many combinations are there?
     '''
-    combinations.combinations(80,1)
+    cb = combinations.combinations(49,6)
+    cb = str(cb)
+    print('Ilość kombinacji w Lotto: ' + cb)
+    cb = combinations.combinations(42,5)
+    cb = str(cb)
+    print('Ilość kombinacji w Mini Lotto: ' + cb)
+    cb = combinations.combinations(80,2)
+    cb = str(cb)
+    print('Ilość kombinacji w Multi Multi: ' + cb)
+
     continuegame = input('Wciśnij ENTER: ')
 
 
@@ -132,6 +141,7 @@ def printheader():
     print('1. Lotto')
     print('2. Mini Lotto')
     print('3. Multi Multi')
+    print('q - wyjście')
     print('-------------------------------')
 
 
@@ -150,6 +160,10 @@ def gameselect():
             if gametype == 'k':
                 running = False
                 return gametype
+            if gametype == 'q':
+                running = False
+                return gametype
+
             if gametype != '' and int(gametype) in range(1,4):
                 gametype = int(gametype)
             if gametype == '':
@@ -179,7 +193,7 @@ def gameselect():
         except:
             print('Wprowadzono błędne dane!')
     running = True
-    if gametype == 'u' or gametype == 'k':
+    if gametype == 'u' or gametype == 'k' or gametype == 'q':
         return
     while running:
         try:
@@ -239,6 +253,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         comparedbfile(gamefile)
     return nums_all, nums_list
 
+
 def restartgame():
     restart = ''
     restart = input('Nowe losowanie? UWAGA - wyniki ostatniego losowania zostaną utracone! (t/n): ')
@@ -257,8 +272,10 @@ def draworupdate():
         main()
     elif gametype == 'k':
         clearscreen()
-        chanses()
+        chances()
         main()
+    elif gametype == 'q':
+        sys.exit(0)
 
 #    else:
 #        drawnumbers(gametype, nums_to_draw, number_of_draws)

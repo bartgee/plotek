@@ -14,7 +14,9 @@ def combinations(nums,numsdrawed):
     n = factorial(nums)
     k = factorial(numsdrawed) * factorial(nums - numsdrawed)
     comb = n / k
-    return print(comb)
+    comb = int(comb)
+    #return print(comb)
+    return comb
 
 #combinations(49,6)
 #print(comb)
