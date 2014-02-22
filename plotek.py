@@ -37,7 +37,7 @@ def comparedbfile(filename):
         and then compares actual draw with historical draws database.
         It also prints matches and counts them.
     '''
-    global nums_list, database, matchcount, dbrowcount, dayzero
+    global nums_list, database, matchcount, dbrowcount, dayzero, daylast
     data = []
     database = []
     #matchcount = 0
@@ -52,6 +52,7 @@ def comparedbfile(filename):
             dbrowcount = len(data)
             if index < len(data)-1:
                 index = index + 1
+                daylast = data[index][1]
             database = database.split(',')
             list(database)
             database = [int(item) for item in database]
@@ -68,7 +69,7 @@ def comparedbfile(filename):
                     #print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
                     #print('Wynik losowania: ' + str(database))
                 #input('ENTER')
-    return matchcount, dbrowcount, dayzero
+    return matchcount, dbrowcount, dayzero, daylast
 
 
 def geturl(url):
@@ -326,7 +327,8 @@ def main():
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
-    print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + ' r.')
+    print('Ostatnie losowanie w bazie jest z dnia ' + str(daylast) + ' r.')
     #printmatches()
     #comparetest()
     restartgame()
