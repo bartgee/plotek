@@ -249,8 +249,10 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
         nums_all = nums_all[:-1]
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        workingdir = os.getcwd()
-        comparedbfile(workingdir + gamefile)
+        #workingdir = os.getcwd()
+        full_path = os.path.realpath(__file__)
+        workingdir = os.path.dirname(full_path)
+        comparedbfile(workingdir + '/' + gamefile)
     return nums_all, nums_list
 
 
