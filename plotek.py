@@ -63,9 +63,10 @@ def comparedbfile(filename):
             if match == True:
                 matchcount = matchcount + 1
                 #print('Ilość dopasowań: ' + str(len(common_nums)))
-                print('Liczby: ', common_nums)
-                print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
-                print('Wynik losowania: ' + str(database))
+                #if matchcount <= 3:
+                    #print('Liczby: ', common_nums)
+                    #print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
+                    #print('Wynik losowania: ' + str(database))
                 #input('ENTER')
     return matchcount, dbrowcount, dayzero
 
@@ -255,6 +256,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         full_path = os.path.realpath(__file__)
         workingdir = os.path.dirname(full_path)
         comparedbfile(workingdir + '/' + gamefile)
+        printmatches()
     return nums_all, nums_list
 
 
@@ -315,7 +317,7 @@ def comparetest():
 def printmatches():
     ''' Prints matches if they occured in draws.
     '''
-    print('Znaleziono ' + str(matchcount) + ' dopasowań w bazie ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    print('Liczby te wylosowano już ' + str(matchcount) + ' razy.')
 
 
 def main():
@@ -324,7 +326,8 @@ def main():
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
-    printmatches()
+    print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + '.')
+    #printmatches()
     #comparetest()
     restartgame()
 
