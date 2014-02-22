@@ -6,7 +6,8 @@
 # CHANGELOG moved to external file
 
 import random, os, platform, sys, csv
-#from array import array
+# importing local modules:
+import combinations
 
 try:
     # For Python 3.0 and later
@@ -15,9 +16,12 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 
-#class draw:
 
-    #def __init__(self):
+def chanses():
+    ''' How many combinations are there?
+    '''
+    combinations.combinations(80,1)
+    continuegame = input('Wciśnij ENTER: ')
 
 
 def comparedbfile(filename):
@@ -56,6 +60,7 @@ def comparedbfile(filename):
                 print('Wynik losowania: ' + str(database))
                 #input('ENTER')
     return matchcount, dbrowcount, dayzero
+
 
 def geturl(url):
     ''' Gets the URL and saves it to file.
@@ -123,6 +128,7 @@ def printheader():
     print('* pLotek 2.0 BETA! by bartgee *')
     print('*******************************')
     print('u - aktualizacja baz losowań')
+    print('k - obliczenie kombinacji')
     print('1. Lotto')
     print('2. Mini Lotto')
     print('3. Multi Multi')
@@ -139,6 +145,9 @@ def gameselect():
         try:
             gametype = input('Wybierz grę LOTTO (1,2,3 lub ENTER dla LOTTO): ')
             if gametype == 'u':
+                running = False
+                return gametype
+            if gametype == 'k':
                 running = False
                 return gametype
             if gametype != '' and int(gametype) in range(1,4):
@@ -170,7 +179,7 @@ def gameselect():
         except:
             print('Wprowadzono błędne dane!')
     running = True
-    if gametype == 'u':
+    if gametype == 'u' or gametype == 'k':
         return
     while running:
         try:
@@ -246,6 +255,11 @@ def draworupdate():
         clearscreen()
         alldbdownload()
         main()
+    elif gametype == 'k':
+        clearscreen()
+        chanses()
+        main()
+
 #    else:
 #        drawnumbers(gametype, nums_to_draw, number_of_draws)
 #        readdbfile('dl_razem.txt')
