@@ -29,8 +29,7 @@ def chances():
     cb = combinations.combinations(80,10)
     cb = str(cb)
     print('Ilość kombinacji w Multi Multi: ' + cb)
-
-    continuegame = input('Wciśnij ENTER: ')
+    input('Wciśnij ENTER: ')
 
 
 def comparedbfile(filename):
@@ -114,7 +113,7 @@ def alldbdownload():
     gamealiases = {'dl': 'dl_razem.txt', 'ml': 'el.txt', 'mm': 'ml.txt'}
     for gamealias, filename in gamealiases.items():
         dbdownload(gamealias)
-    continuegame = input('Wciśnij ENTER: ')
+    input('Wciśnij ENTER: ')
     return
 
 
@@ -250,7 +249,8 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
 
         nums_all = nums_all[:-1]
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        comparedbfile(gamefile)
+        workingdir = os.getcwd()
+        comparedbfile(workingdir + '/' + gamefile)
     return nums_all, nums_list
 
 
