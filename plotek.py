@@ -26,7 +26,7 @@ def chances():
     cb = combinations.combinations(42,5)
     cb = str(cb)
     print('Ilość kombinacji w Mini Lotto: ' + cb)
-    cb = combinations.combinations(80,2)
+    cb = combinations.combinations(80,10)
     cb = str(cb)
     print('Ilość kombinacji w Multi Multi: ' + cb)
 
