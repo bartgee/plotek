@@ -75,7 +75,9 @@ def geturl(url):
 
     Full URL must be given as an argument.
     '''
-    f = open(filename, 'w')
+    full_path = os.path.realpath(__file__)
+    workingdir = os.path.dirname(full_path)
+    f = open(workingdir + '/' + filename, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
         f.write(line)
