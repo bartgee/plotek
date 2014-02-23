@@ -22,13 +22,13 @@ def chances():
     '''
     cb = combinations.combinations(49,6)
     cb = str(cb)
-    print('Ilość kombinacji w Lotto: ' + cb)
+    print('Ilość kombinacji w Lotto: ' + combinations.splitthousands(cb,'.'))
     cb = combinations.combinations(42,5)
     cb = str(cb)
-    print('Ilość kombinacji w Mini Lotto: ' + cb)
+    print('Ilość kombinacji w Mini Lotto: ' + combinations.splitthousands(cb,'.'))
     cb = combinations.combinations(80,10)
     cb = str(cb)
-    print('Ilość kombinacji w Multi Multi: ' + cb)
+    print('Ilość kombinacji w Multi Multi: ' + combinations.splitthousands(cb,'.'))
     input('Wciśnij ENTER: ')
 
 

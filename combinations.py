@@ -9,6 +9,7 @@ def factorial(x):
     else:
         return x * factorial(x-1)
 
+
 def combinations(nums,numsdrawed):
     #global comb
     n = factorial(nums)
@@ -20,3 +21,8 @@ def combinations(nums,numsdrawed):
 
 #combinations(49,6)
 #print(comb)
+
+
+def splitthousands(s, sep=','):
+    if len(s) <= 3: return s
+    return splitthousands(s[:-3], sep) + sep + s[-3:]
