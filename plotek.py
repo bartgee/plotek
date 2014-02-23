@@ -30,15 +30,22 @@ def chances():
     cb = str(cb)
     print('Ilość kombinacji w Multi Multi: ' + combinations.splitthousands(cb,'.'))
     input('Wciśnij ENTER: ')
-    numsmatched = 10
-    numsdrawed = 10
+    clearscreen()
+    numsdrawed = input('Podaj ilość typowanych liczb: ')
+    numsdrawed = int(numsdrawed)
+    numsmatched = numsdrawed
+    if numsdrawed == 0:
+        numsdrawed = 10
+        numsmatched = 10
     while True:
         cb = combinations.matched(80,numsdrawed,numsmatched)
         cb = str(cb)
         print('Typowane: ' + str(numsdrawed) + ", trafione: " + str(numsmatched) + ' liczb z 80: '  + '1:' + combinations.splitthousands(cb,'.'))
         numsmatched = numsmatched - 1
         if numsmatched == 0:
+            input('Wciśnij ENTER: ')
             return
+
 
 
 def comparedbfile(filename):
