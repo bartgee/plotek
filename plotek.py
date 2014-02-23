@@ -318,7 +318,12 @@ def comparetest():
 def printmatches():
     ''' Prints matches if they occured in draws.
     '''
-    print('Liczby te wylosowano już ' + str(matchcount) + ' razy.')
+    if matchcount > 1:
+        print('Liczby te wylosowano już ' + str(matchcount) + ' razy!')
+    if matchcount == 1:
+        print('Liczby te wylosowano już ' + str(matchcount) + ' raz!')
+    else:
+        print('Nigdy nie wylosowano takich liczb!')
 
 
 def main():
