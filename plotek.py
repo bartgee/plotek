@@ -30,22 +30,68 @@ def chances():
     cb = str(cb)
     print('Ilość kombinacji w Multi Multi: ' + combinations.splitthousands(cb,'.'))
     input('Wciśnij ENTER: ')
-    clearscreen()
-    numsdrawed = input('Podaj ilość typowanych liczb: ')
-    numsdrawed = int(numsdrawed)
-    numsmatched = numsdrawed
-    if numsdrawed == 0:
-        numsdrawed = 10
-        numsmatched = 10
-    while True:
-        cb = combinations.matched(80,numsdrawed,numsmatched)
-        cb = str(cb)
-        print('Typowane: ' + str(numsdrawed) + ", trafione: " + str(numsmatched) + ' liczb z 80: '  + '1:' + combinations.splitthousands(cb,'.'))
-        numsmatched = numsmatched - 1
-        if numsmatched == 0:
-            input('Wciśnij ENTER: ')
-            return
-
+    running2 = True
+    while running2:
+        try:
+            clearscreen()
+            print('Obliczanie prawdopodobieństwa wygranej.')
+            print('1. Lotto')
+            print('2. Mini Lotto')
+            print('3. Multi Multi')
+            game = input('Wybierz grę: ')
+            if game != '' and int(game) in range(1,4):
+                print('game:' + str(game))
+                game = int(game)
+                if game == 1: # Lotto
+                    nums = 49
+                    start = 3
+                    stop = 7
+                    numsdrawed = 6
+                    running2 = False
+                if game == 2: # Mini Lotto
+                    nums = 42
+                    start = 3
+                    stop = 6
+                    numsdrawed = 5
+                    running2 = False
+                if game == 3: # Multi Multi
+                    nums = 80
+                    running2 = False
+                    numsdrawed = input('Podaj ilość typowanych liczb: ')
+                    numsdrawed = int(numsdrawed)
+                    if numsdrawed >= 5 and numsdrawed <= 7:
+                        start = 3
+                    elif numsdrawed >= 2 and numsdrawed <= 4:
+                        start = 2
+                    elif numsdrawed == 1:
+                        start = 1
+                    else:
+                        start = 4
+                    stop = numsdrawed + 1
+                    machinedrawed = 20
+            if game != 3:
+                machinedrawed = numsdrawed
+            running = True
+            while running:
+                try:
+                    if numsdrawed != None and numsdrawed in range(start, stop):
+                        numsmatched = numsdrawed
+                        mini = True
+                        while mini:
+                            cb = combinations.matched(nums,numsdrawed,numsmatched,machinedrawed)
+                            cb = str(cb)
+                            print('Typ.: ' + str(numsdrawed) + ", traf.: " + str(numsmatched) + ' liczb z ' + str(nums) + ': '  + '1:' + combinations.splitthousands(cb,'.'))
+                            numsmatched = numsmatched - 1
+                            if numsmatched == start - 1:
+                                mini = False
+                                running = False
+                except:
+                    print('Wprowadzono błędne dane!1')
+        except:
+            print('Wprowadzono błędne dane!2')
+    running2 = True
+    input('Wciśnij ENTER: ')
+    return
 
 
 def comparedbfile(filename):
@@ -156,7 +202,7 @@ def printheader():
     print('* pLotek 2.0 BETA! by bartgee *')
     print('*******************************')
     print('u - aktualizacja baz losowań')
-    print('k - obliczenie kombinacji')
+    print('p - prawdopodobieństwo wygranej')
     print('1. Lotto')
     print('2. Mini Lotto')
     print('3. Multi Multi')
@@ -176,7 +222,7 @@ def gameselect():
             if gametype == 'u':
                 running = False
                 return gametype
-            if gametype == 'k':
+            if gametype == 'p':
                 running = False
                 return gametype
             if gametype == 'q':
@@ -212,7 +258,7 @@ def gameselect():
         except:
             print('Wprowadzono błędne dane!')
     running = True
-    if gametype == 'u' or gametype == 'k' or gametype == 'q':
+    if gametype == 'u' or gametype == 'p' or gametype == 'q':
         return
     while running:
         try:
@@ -293,7 +339,7 @@ def draworupdate():
         clearscreen()
         alldbdownload()
         main()
-    elif gametype == 'k':
+    elif gametype == 'p':
         clearscreen()
         chances()
         main()

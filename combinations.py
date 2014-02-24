@@ -17,31 +17,21 @@ def factorial(x):
 
 
 def combinations(nums,numsdrawed):
-    #global comb
     n = factorial(nums)
     k = factorial(numsdrawed) * factorial(nums - numsdrawed)
     comb = n / k
     comb = int(comb)
-    #return print(comb)
     return comb
 
 
-def matched(nums,numsdrawed,matched):
-    global comb
+def matched(nums,numsdrawed,matched,k=20):
     n = nums
-    k = 20
+    #k = 20
     r = numsdrawed
     s = matched
-    print(n,k,r,s)
     c1 = factorial(n) / (factorial(r) * factorial(n - r))
     c2 = factorial(k) / (factorial(s) * factorial(k -s))
     c3 = factorial(n - k) / (factorial(r - s) * factorial(n - k - (r - s)))
     comb = c1 / (c2 * c3)
     comb = int(round(comb,0))
     return comb
-#combinations(49,6)
-#print(comb)
-
-#matched(80,10,10)
-#print(comb)
-
