@@ -40,7 +40,6 @@ def chances():
             print('3. Multi Multi')
             game = input('Wybierz grę: ')
             if game != '' and int(game) in range(1,4):
-                print('game:' + str(game))
                 game = int(game)
                 if game == 1: # Lotto
                     nums = 49
@@ -388,6 +387,13 @@ def printmatches():
     elif matchcount == 0:
         print('Nigdy nie wylosowano takich liczb!')
 
+def printfooter():
+    ''' Prints the footer after drawing
+    '''
+    print('###############################')
+    print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + ' r.')
+    print('Ostatnie losowanie w bazie jest z dnia ' + str(daylast) + ' r.')
+
 
 def main():
     clearscreen()
@@ -395,9 +401,7 @@ def main():
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
-    print('###############################')
-    print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + ' r.')
-    print('Ostatnie losowanie w bazie jest z dnia ' + str(daylast) + ' r.')
+    printfooter()
     #printmatches()
     #comparetest()
     restartgame()
