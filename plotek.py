@@ -271,7 +271,7 @@ def gameselect():
                 running = False
             elif number_of_draws in range(1, 21):
                 running = False
-            print('-------------------------------')
+            #print('-------------------------------')
         except:
                 print('Wprowadzono błędne dane!')
     return gametype, nums_to_draw, number_of_draws
@@ -314,6 +314,7 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
                 nums_all = nums_all + str(item) + ','
 
         nums_all = nums_all[:-1]
+        print('-------------------------------')
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
         #workingdir = os.getcwd()
         full_path = os.path.realpath(__file__)
@@ -382,9 +383,9 @@ def printmatches():
     '''
     if matchcount > 1:
         print('Liczby te wylosowano już ' + str(matchcount) + ' razy!')
-    if matchcount == 1:
+    elif matchcount == 1:
         print('Liczby te wylosowano już ' + str(matchcount) + ' raz!')
-    else:
+    elif matchcount == 0:
         print('Nigdy nie wylosowano takich liczb!')
 
 
@@ -394,6 +395,7 @@ def main():
     gameselect()
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
+    print('###############################')
     print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + ' r.')
     print('Ostatnie losowanie w bazie jest z dnia ' + str(daylast) + ' r.')
     #printmatches()
