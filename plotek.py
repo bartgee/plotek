@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pLotek 2.0 beta
+# pLotek 2.1 beta
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 #
 # CHANGELOG moved to external file
@@ -199,7 +199,7 @@ def printheader():
     ''' Prints the app header
     '''
     print('*******************************')
-    print('* pLotek 2.0 BETA! by bartgee *')
+    print('* pLotek 2.1 BETA! by bartgee *')
     print('*******************************')
     print('u - aktualizacja baz losowań')
     print('p - prawdopodobieństwo wygranej')

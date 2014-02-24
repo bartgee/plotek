@@ -1,9 +1,13 @@
 i# *** CHANGELOG ***
 #
+# 2014.02.24 - ver 2.1 BETA!
+# - added draw matching with historical drawing databases
+# - added probability o winning
+#
 # 2014.02.01 - ver 2.0 BETA!
 # - moved all the code from main() to separate functions
 # - added function for downloading historical drawings databases
-#   for Lotto, Mini Lotto and Multi Multi games. 
+#   for Lotto, Mini Lotto and Multi Multi games.
 #   User can decide whether to update databases from the Internet.
 #
 # 2014.01.31 - ver. 1.2
