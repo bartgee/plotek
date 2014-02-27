@@ -42,18 +42,21 @@ def chances():
             if game != '' and int(game) in range(1,4):
                 game = int(game)
                 if game == 1: # Lotto
+                    gamename = 'Lotto'
                     nums = 49
                     start = 3
                     stop = 7
                     numsdrawed = 6
                     running2 = False
                 if game == 2: # Mini Lotto
+                    gamename = 'Mini Lotto'
                     nums = 42
                     start = 3
                     stop = 6
                     numsdrawed = 5
                     running2 = False
                 if game == 3: # Multi Multi
+                    gamename = 'Multi Multi'
                     nums = 80
                     running2 = False
                     numsdrawed = input('Podaj ilość typowanych liczb: ')
@@ -70,25 +73,25 @@ def chances():
                     machinedrawed = 20
             if game != 3:
                 machinedrawed = numsdrawed
-            running = True
-            while running:
-                try:
-                    if numsdrawed != None and numsdrawed in range(start, stop):
-                        numsmatched = numsdrawed
-                        mini = True
-                        while mini:
-                            cb = combinations.matched(nums,numsdrawed,numsmatched,machinedrawed)
-                            cb = str(cb)
-                            print('Typ.: ' + str(numsdrawed) + ", traf.: " + str(numsmatched) + ' liczb z ' + str(nums) + ': '  + '1:' + combinations.splitthousands(cb,'.'))
-                            numsmatched = numsmatched - 1
-                            if numsmatched == start - 1:
-                                mini = False
-                                running = False
-                except:
-                    print('Wprowadzono błędne dane!1')
         except:
-            print('Wprowadzono błędne dane!2')
-    running2 = True
+            print('Wprowadzono błędne dane!')
+    clearscreen()
+    print('Prawdopodobieństwo trafienia w '+ gamename)
+    print('Typowano ' + str(numsdrawed) + ' z ' +str(nums))
+    print('-------------------------------')
+    running = True
+    numsmatched = numsdrawed
+    while running:
+        try:
+            if numsdrawed is not None and numsdrawed in range(start, stop):
+                cb = combinations.matched(nums,numsdrawed,numsmatched,machinedrawed)
+                cb = str(cb)
+                print('Trafiono ' + str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.'))
+                numsmatched = numsmatched - 1
+                if numsmatched == start - 1:
+                    running = False
+        except:
+            print('Wprowadzono błędne dane!')
     input('Wciśnij ENTER: ')
     return
 
