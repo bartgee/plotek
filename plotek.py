@@ -19,7 +19,7 @@ except ImportError:
 
 def chances(runonce = 0):
     ''' How many combinations are there?
-    What is the chance to win any money?
+        What is the chance to win any money?
     '''
     if runonce == 0:
         cb = combinations.combinations(49, 6)
@@ -37,10 +37,11 @@ def chances(runonce = 0):
         try:
             clearscreen()
             print('Obliczanie prawdopodobieństwa wygranej.')
+            print('-------------------------------')
             print('1. Lotto')
             print('2. Mini Lotto')
             print('3. Multi Multi')
-            print('q - wyjście głównego menu')
+            print('q - wyjście do głównego menu')
             game = input('Wybierz grę: ')
             if game == 'q':
                 return game
@@ -86,7 +87,7 @@ def chances(runonce = 0):
                 if game != 3:
                     machinedrawed = numsdrawed
         except:
-            print('Wprowadzono błędne dane! badloop!!!')
+            print('Wprowadzono błędne dane!')
     clearscreen()
     print('Prawdopodobieństwo trafienia w '+ gamename)
     print('Typowano ' + str(numsdrawed) + ' z ' +str(nums))
