@@ -365,6 +365,7 @@ def printmatches():
     elif matchcount == 0:
         print('Nigdy nie wylosowano takich liczb!')
 
+
 def printfooter():
     ''' Prints the footer after drawing
     '''
