@@ -207,9 +207,9 @@ def clearscreen():
 def printheader():
     ''' Prints the app header
     '''
-    print('*******************************')
-    print('* pLotek 2.1 BETA! by bartgee *')
-    print('*******************************')
+    print('**********************************')
+    print('* pLotek 2.0 TESTING! by bartgee *')
+    print('**********************************')
     print('u - aktualizacja baz losowań')
     print('p - prawdopodobieństwo wygranej')
     print('1. Lotto')
