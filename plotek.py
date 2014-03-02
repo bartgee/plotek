@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pLotek 2.1 beta
+# pLotek 2.0 testing
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 #
 # CHANGELOG moved to external file
@@ -118,7 +118,6 @@ def comparedbfile(filename):
     global nums_list, database, matchcount, dbrowcount, dayzero, daylast
     data = []
     database = []
-    #matchcount = 0
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         data = [tuple(row) for row in reader]
@@ -141,12 +140,6 @@ def comparedbfile(filename):
             match = len(common_nums) == len(nums_list)
             if match == True:
                 matchcount = matchcount + 1
-                #print('Ilość dopasowań: ' + str(len(common_nums)))
-                #if matchcount <= 3:
-                    #print('Liczby: ', common_nums)
-                    #print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
-                    #print('Wynik losowania: ' + str(database))
-                #input('ENTER')
     return matchcount, dbrowcount, dayzero, daylast
 
 
@@ -287,7 +280,6 @@ def gameselect():
                 running = False
             elif number_of_draws in range(1, 21):
                 running = False
-            #print('-------------------------------')
         except:
                 print('Wprowadzono błędne dane!')
     return gametype, nums_to_draw, number_of_draws
@@ -332,7 +324,6 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         nums_all = nums_all[:-1]
         print('-------------------------------')
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        #workingdir = os.getcwd()
         full_path = os.path.realpath(__file__)
         workingdir = os.path.dirname(full_path)
         comparedbfile(workingdir + '/' + gamefile)
@@ -363,36 +354,6 @@ def draworupdate():
     elif gametype == 'q':
         sys.exit(0)
 
-#    else:
-#        drawnumbers(gametype, nums_to_draw, number_of_draws)
-#        readdbfile('dl_razem.txt')
-#        restartgame()
-
-
-def comparetest():
-    ''' This function is just for manual comparing drawed numbers
-        with historical from database
-    '''
-    global nums_all, nums_list, nums_drawed
-    nums_all = input('wygraj sam 6 z 49 - podaj ręcznie: ')
-    nums_drawed = nums_all.split(',')
-    nums_drawed = [ int(item) for item in nums_drawed ]
-    print('po konwersji do int:')
-    for item in nums_drawed:
-        print(item)
-    nums_list = []
-    for num in nums_drawed:
-        nums_list.append(num)
-    nums_list.sort()
-    #print('nums_list:', nums_list)
-    comparedbfile(gamefile) # we're only using this in the rest of the code!
-    #drawnumbers(gametype, nums_to_draw, number_of_draws)
-    #comparedbfile('ml.txt')
-    #comparedbfile('dl_razem.txt')
-    print('koniec fukcji comparedbtest()')
-    #sys.exit(0)
-    #return nums_list
-
 
 def printmatches():
     ''' Prints matches if they occured in draws.
@@ -419,8 +380,6 @@ def main():
     draworupdate()
     drawnumbers(gametype, nums_to_draw, number_of_draws)
     printfooter()
-    #printmatches()
-    #comparetest()
     restartgame()
 
 if __name__ == '__main__':

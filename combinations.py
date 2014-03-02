@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Combinations module
+# Combinations and probability of win module
+# author: Bart Grzybicki <bgrzybicki@gmail.com>
 
 
 def splitthousands(s, sep=','):
@@ -26,7 +27,6 @@ def combinations(nums,numsdrawed):
 
 def matched(nums,numsdrawed,matched,k=20):
     n = nums
-    #k = 20
     r = numsdrawed
     s = matched
     c1 = factorial(n) / (factorial(r) * factorial(n - r))

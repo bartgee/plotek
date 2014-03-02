@@ -1,27 +1,11 @@
 i# *** CHANGELOG ***
 #
-# 2014.02.24 - ver 2.1 BETA!
-# - added draw matching with historical drawing databases
-# - added probability o winning
-#
-# 2014.02.01 - ver 2.0 BETA!
-# - moved all the code from main() to separate functions
-# - added function for downloading historical drawings databases
-#   for Lotto, Mini Lotto and Multi Multi games.
-#   User can decide whether to update databases from the Internet.
-#
-# 2014.01.31 - ver. 1.2
-# - code cleanup
-#
-# 2014.01.30 - ver. 1.2 testing
-# - code cleanup
-#
-# 2014.01.27 - DEVEL VERSION 2.0 alpha !!!
-# - new functions are in my mind at the moment ;)
-# - working on historical LOTTO drawings usage:
-#   * download historical drawings data file from the Internet (done)
-#   * putting the data into some parse'able file - probably it will be CSV format (under construction)
-#   * choosing the ideas of usage (in the near future)
+# 2014.03.02 - ver 2.0 TESTING!
+# - added function for downloading historical drawings databases from the Internet
+# - added draw comparison with historical drawing databases
+# - added function calculating probability o winning
+# - many UI improvements
+# - moved all the code from main() to separate functions and code cleanup
 #
 # 2014.01.26 - ver. 1.1
 # - added Multi Multi drawing options
