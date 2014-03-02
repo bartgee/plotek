@@ -100,7 +100,7 @@ def chances(runonce = 0):
                 cb = combinations.matched(nums, numsdrawed, numsmatched, machinedrawed)
                 cb = str(cb)
                 print('Trafiono ' + str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.'))
-                numsmatched = numsmatched - 1
+                numsmatched -= numsmatched - 1
                 if numsmatched == start - 1:
                     running = False
         except:
@@ -128,7 +128,7 @@ def comparedbfile(filename):
             dayzero = data[0][1]
             dbrowcount = len(data)
             if index < len(data)-1:
-                index = index + 1
+                index += 1
                 daylast = data[index][1]
             database = database.split(',')
             list(database)
@@ -139,7 +139,7 @@ def comparedbfile(filename):
             common_nums.sort()
             match = len(common_nums) == len(nums_list)
             if match == True:
-                matchcount = matchcount + 1
+                matchcount += 1
     return matchcount, dbrowcount, dayzero, daylast
 
 
