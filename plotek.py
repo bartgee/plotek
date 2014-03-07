@@ -173,7 +173,7 @@ def dbdownload(gamealias):
         gamename =  'Multi Multi'
     filename = gamealiases[gamealias]
     try:
-        print('Pobieranie bazy losowań ' + gamename + '...')
+        print('Pobieranie bazy ' + gamename + '...')
         url = ('http://www.mbnet.com.pl/' + filename)
         geturl(url)
         print('Baza ' + gamename + ' została pobrana :-).')
