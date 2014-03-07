@@ -208,7 +208,7 @@ def printheader():
     ''' Prints the app header
     '''
     print('**********************************')
-    print('* pLotek 2.0 TESTING! by bartgee *')
+    print('* pLotek 2.0          by bartgee *')
     print('**********************************')
     print('u - aktualizacja baz losowań')
     print('p - prawdopodobieństwo wygranej')
