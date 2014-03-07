@@ -1,0 +1,17 @@
+i# *** CHANGELOG ***
+#
+# 2014.03.02 - ver 2.0 TESTING!
+# - added function for downloading historical drawings databases from the Internet
+# - added draw comparison with historical drawing databases
+# - added function calculating probability o winning
+# - many UI improvements
+# - moved all the code from main() to separate functions and code cleanup
+#
+# 2014.01.26 - ver. 1.1
+# - added Multi Multi drawing options
+# - drawed numbers are now stored in a list
+# - changed indents to Python standard coding standard (4 chars)
+# - added ENTER key as input for default options
+#
+# 2014.01.26 - ver. 1.0
+# - first initial version
