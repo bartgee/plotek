@@ -100,7 +100,7 @@ def chances(runonce = 0):
                 cb = combinations.matched(nums, numsdrawed, numsmatched, machinedrawed)
                 cb = str(cb)
                 print('Trafiono ' + str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.'))
-                numsmatched -= numsmatched - 1
+                numsmatched = numsmatched - 1
                 if numsmatched == start - 1:
                     running = False
         except:
@@ -173,10 +173,10 @@ def dbdownload(gamealias):
         gamename =  'Multi Multi'
     filename = gamealiases[gamealias]
     try:
-        print('Pobieranie bazy losowań LOTTO...')
+        print('Pobieranie bazy losowań ' + gamename + '...')
         url = ('http://www.mbnet.com.pl/' + filename)
         geturl(url)
-        print('Pobrano bazę losowań ' + gamename + ' :).')
+        print('Baza ' + gamename + ' została pobrana :-).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
 
