@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pLotek 2.0 testing
+# pLotek 2.0
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 #
 # CHANGELOG moved to external file
