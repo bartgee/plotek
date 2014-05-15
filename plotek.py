@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pLotek 2.0
+# pLotek 2.1
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 #
 # CHANGELOG moved to external file
 
-import random, os, platform, sys, csv
+import random, os, platform, sys, csv, shutil
 # importing local modules:
 import combinations
 
@@ -148,8 +148,10 @@ def geturl(url):
 
     Full URL must be given as an argument.
     '''
+    global workingdir
     full_path = os.path.realpath(__file__)
     workingdir = os.path.dirname(full_path)
+    shutil.copy2(workingdir + '/' + filename, workingdir + '/' + filename + '.orig')
     f = open(workingdir + '/' + filename, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
@@ -179,6 +181,7 @@ def dbdownload(gamealias):
         print('Baza ' + gamename + ' została pobrana :-).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
+    shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
 
 
 def alldbdownload():
