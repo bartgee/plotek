@@ -1,12 +1,15 @@
 i# *** CHANGELOG ***
 #
+# 2014.05.18 - ver 2.2
+# - added win values in probability of winning feature
+#
 # 2014.05.16 - ver 2.1
 # - fixed history draws files zeroing upon unsuccessful web update
 #
 # 2014.03.07 - ver 2.0
 # - added function for downloading historical drawings databases from the Internet
 # - added draw comparison with historical drawing databases
-# - added function calculating probability o winning
+# - added function calculating probability of winning
 # - many UI improvements
 # - moved all the code from main() to separate functions and code cleanup
 #

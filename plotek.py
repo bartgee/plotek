@@ -21,16 +21,18 @@ def chances(runonce = 0):
     ''' How many combinations are there?
         What is the chance to win any money?
     '''
+    win = '? zł'
     if runonce == 0:
         cb = combinations.combinations(49, 6)
         cb = str(cb)
-        print('Ilość kombinacji w Lotto: ' + combinations.splitthousands(cb, '.'))
+        print('Ilość kombinacji w:\n')
+        print('Lotto: ' + combinations.splitthousands(cb, '.'))
         cb = combinations.combinations(42, 5)
         cb = str(cb)
-        print('Ilość kombinacji w Mini Lotto: ' + combinations.splitthousands(cb, '.'))
+        print('Mini Lotto: ' + combinations.splitthousands(cb, '.'))
         cb = int(combinations.combinations(80, 10) / combinations.combinations(20, 10))
         cb = str(cb)
-        print('Ilość kombinacji w Multi Multi: ' + combinations.splitthousands(cb, '.'))
+        print('Multi Multi: ' + combinations.splitthousands(cb, '.'))
         input('Wciśnij ENTER: ')
     running2 = True
     while running2:
@@ -94,13 +96,99 @@ def chances(runonce = 0):
     print('-------------------------------')
     running = True
     numsmatched = numsdrawed
+    print('Trafiono:')
     while running:
         try:
             if numsdrawed is not None and numsdrawed in range(start, stop):
+                if gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 10:
+                    win = '250 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 9:
+                    win = '10 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 8:
+                    win = '520 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 7:
+                    win = '140 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 6:
+                    win = '12 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 5:
+                    win = '4 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 4:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 9:
+                    win = '70 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 8:
+                    win = '2 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 7:
+                    win = '300 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 6:
+                    win = '42 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 5:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 4:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 8:
+                    win = '22 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 7:
+                    win = '600 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 6:
+                    win = '60 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 5:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 4:
+                    win = '4 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 7:
+                    win = '6 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 6:
+                    win = '200 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 5:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 4:
+                    win = '4 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 3:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 6:
+                    win = '1 300 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 5:
+                    win = '120 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 4:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 3:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 5:
+                    win = '700 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 4:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 3:
+                    win = '4 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 4:
+                    win = '84 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 3:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 2:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 3 and numsmatched == 3:
+                    win = '54 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 3 and numsmatched == 2:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 2 and numsmatched == 2:
+                    win = '16 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 1 and numsmatched == 1:
+                    win = '4 zł'
+
                 cb = combinations.matched(nums, numsdrawed, numsmatched, machinedrawed)
                 cb = str(cb)
-                print('Trafiono ' + str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.'))
+                print(str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.') + ' (' + win + ')')
                 numsmatched = numsmatched - 1
+                win = '? zł'
                 if numsmatched == start - 1:
                     running = False
         except:
@@ -211,7 +299,7 @@ def printheader():
     ''' Prints the app header
     '''
     print('**********************************')
-    print('* pLotek 2.1          by bartgee *')
+    print('* pLotek 2.2          by bartgee *')
     print('**********************************')
     print('u - aktualizacja baz losowań')
     print('p - prawdopodobieństwo wygranej')
