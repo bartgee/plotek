@@ -241,7 +241,7 @@ def geturl(url):
     workingdir = os.path.dirname(full_path)
     try:
         shutil.copy2(workingdir + '/' + filename, workingdir + '/' + filename + '.orig')
-    except FileNotFoundError:
+    except Exception:
         pass
     f = open(workingdir + '/' + filename, 'w')
     for line in urlopen(url):
@@ -274,7 +274,7 @@ def dbdownload(gamealias):
         print('Błąd pobierania bazy losowań ' + gamename + '!')
         try:
             shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
-        except FileNotFoundError:
+        except Exception:
             pass
 
 
