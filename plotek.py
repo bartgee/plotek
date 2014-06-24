@@ -269,7 +269,7 @@ def dbdownload(gamealias):
         print('Baza ' + gamename + ' została pobrana :-).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
-    shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
+        shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
 
 
 def alldbdownload():
