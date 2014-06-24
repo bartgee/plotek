@@ -239,7 +239,10 @@ def geturl(url):
     global workingdir
     full_path = os.path.realpath(__file__)
     workingdir = os.path.dirname(full_path)
-    shutil.copy2(workingdir + '/' + filename, workingdir + '/' + filename + '.orig')
+    try:
+        shutil.copy2(workingdir + '/' + filename, workingdir + '/' + filename + '.orig')
+    except FileNotFoundError:
+        pass
     f = open(workingdir + '/' + filename, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
@@ -269,7 +272,10 @@ def dbdownload(gamealias):
         print('Baza ' + gamename + ' została pobrana :-).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
-        shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
+        try:
+            shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
+        except FileNotFoundError:
+            pass
 
 
 def alldbdownload():
