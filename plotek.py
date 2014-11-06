@@ -16,7 +16,6 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 
-
 def chances(runonce = 0):
     ''' How many combinations are there?
         What is the chance to win any money?
@@ -35,7 +34,7 @@ def chances(runonce = 0):
     running2 = True
     while running2:
         try:
-            clearscreen()
+            clear_screen()
             print('Obliczanie prawdopodobieństwa wygranej.')
             print('-------------------------------')
             print('1. Lotto')
@@ -88,7 +87,7 @@ def chances(runonce = 0):
                     machinedrawed = numsdrawed
         except:
             print('Wprowadzono błędne dane!')
-    clearscreen()
+    clear_screen()
     print('Prawdopodobieństwo trafienia w '+ gamename)
     print('Typowano ' + str(numsdrawed) + ' z ' +str(nums))
     print('-------------------------------')
@@ -106,11 +105,10 @@ def chances(runonce = 0):
         except:
             print('Wprowadzono błędne dane!')
     input('Wciśnij ENTER: ')
-    clearscreen()
+    clear_screen()
     chances(1)
 
-
-def comparedbfile(filename):
+def compare_db_file(filename):
     ''' Reads the CSV file with space as a delimiter
         and then compares actual draw with historical draws database.
         It also prints matches and counts them.
@@ -149,8 +147,7 @@ def comparedbfile(filename):
                 #input('ENTER')
     return matchcount, dbrowcount, dayzero, daylast
 
-
-def geturl(url):
+def get_url(url):
     ''' Gets the URL and saves it to file.
 
     Full URL must be given as an argument.
@@ -163,8 +160,7 @@ def geturl(url):
         f.write(line)
     f.close()
 
-
-def dbdownload(gamealias):
+def db_download(gamealias):
     ''' Downloads LOTTO database in text format from mbnet.com.pl
 
     The argument is gamealias:
@@ -182,24 +178,22 @@ def dbdownload(gamealias):
     try:
         print('Pobieranie bazy losowań LOTTO...')
         url = ('http://www.mbnet.com.pl/' + filename)
-        geturl(url)
+        get_url(url)
         print('Pobrano bazę losowań ' + gamename + ' :).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
 
-
-def alldbdownload():
+def all_db_download():
     ''' Download all LOTTO databases
     '''
     global gamealiases, gamealias, filename
     gamealiases = {'dl': 'dl_razem.txt', 'ml': 'el.txt', 'mm': 'ml.txt'}
     for gamealias, filename in gamealiases.items():
-        dbdownload(gamealias)
+        db_download(gamealias)
     input('Wciśnij ENTER: ')
     return
 
-
-def clearscreen():
+def clear_screen():
     ''' Clears the screen.
 
     usage: clearscreen()
@@ -210,8 +204,7 @@ def clearscreen():
     else:
         os.system('clear')
 
-
-def printheader():
+def print_header():
     ''' Prints the app header
     '''
     print('*******************************')
@@ -225,8 +218,7 @@ def printheader():
     print('q - wyjście')
     print('-------------------------------')
 
-
-def gameselect():
+def game_select():
     ''' returns a game name, numbers to draw and number of draws selected by user
     '''
     global gametype, nums_to_draw, number_of_draws, matchcount
@@ -292,8 +284,7 @@ def gameselect():
                 print('Wprowadzono błędne dane!')
     return gametype, nums_to_draw, number_of_draws
 
-
-def drawnumbers(gametype, nums_to_draw, number_of_draws):
+def draw_numbers(gametype, nums_to_draw, number_of_draws):
     ''' Draws the numbers in chosen Lotto - a Polish lottery games. At the moment
     threee of them - Lotto, Mini Lotto and Multi Multi
 
@@ -335,12 +326,11 @@ def drawnumbers(gametype, nums_to_draw, number_of_draws):
         #workingdir = os.getcwd()
         full_path = os.path.realpath(__file__)
         workingdir = os.path.dirname(full_path)
-        comparedbfile(workingdir + '/' + gamefile)
-        printmatches()
+        compare_db_file(workingdir + '/' + gamefile)
+        print_matches()
     return nums_all, nums_list
 
-
-def restartgame():
+def restart_game():
     restart = ''
     restart = input('Nowe losowanie? UWAGA - wyniki ostatniego losowania zostaną utracone! (t/n): ')
     if restart == 't' or restart == '':
@@ -348,16 +338,15 @@ def restartgame():
     else:
         sys.exit(0)
 
-
-def draworupdate():
+def draw_or_update():
     ''' Checks whether the user chose to update drawing databases
     '''
     if gametype == 'u':
-        clearscreen()
-        alldbdownload()
+        clear_screen()
+        all_db_download()
         main()
     elif gametype == 'p':
-        clearscreen()
+        clear_screen()
         chances()
         main()
     elif gametype == 'q':
@@ -368,8 +357,7 @@ def draworupdate():
 #        readdbfile('dl_razem.txt')
 #        restartgame()
 
-
-def comparetest():
+def compare_test():
     ''' This function is just for manual comparing drawed numbers
         with historical from database
     '''
@@ -385,7 +373,7 @@ def comparetest():
         nums_list.append(num)
     nums_list.sort()
     #print('nums_list:', nums_list)
-    comparedbfile(gamefile) # we're only using this in the rest of the code!
+    compare_db_file(gamefile) # we're only using this in the rest of the code!
     #drawnumbers(gametype, nums_to_draw, number_of_draws)
     #comparedbfile('ml.txt')
     #comparedbfile('dl_razem.txt')
@@ -393,8 +381,7 @@ def comparetest():
     #sys.exit(0)
     #return nums_list
 
-
-def printmatches():
+def print_matches():
     ''' Prints matches if they occured in draws.
     '''
     if matchcount > 1:
@@ -404,24 +391,23 @@ def printmatches():
     elif matchcount == 0:
         print('Nigdy nie wylosowano takich liczb!')
 
-def printfooter():
+def print_footer():
     ''' Prints the footer after drawing
     '''
     print('###############################')
     print('Baza ' + game_name + ' zawiera ' + str(dbrowcount) + ' losowań od dnia ' + str(dayzero) + ' r.')
     print('Ostatnie losowanie w bazie jest z dnia ' + str(daylast) + ' r.')
 
-
 def main():
-    clearscreen()
-    printheader()
-    gameselect()
-    draworupdate()
-    drawnumbers(gametype, nums_to_draw, number_of_draws)
-    printfooter()
+    clear_screen()
+    print_header()
+    game_select()
+    draw_or_update()
+    draw_numbers(gametype, nums_to_draw, number_of_draws)
+    print_footer()
     #printmatches()
     #comparetest()
-    restartgame()
+    restart_game()
 
 if __name__ == '__main__':
     main()
