@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pLotek 2.1 beta
+# pLotek 2.2
 # author: Bart Grzybicki <bgrzybicki@gmail.com>
 #
 # CHANGELOG moved to external file
 
-import random, os, platform, sys, csv
+import random, os, platform, sys, csv, shutil
 # importing local modules:
 import combinations
 
@@ -20,16 +20,18 @@ def chances(runonce = 0):
     ''' How many combinations are there?
         What is the chance to win any money?
     '''
+    win = '? zł'
     if runonce == 0:
         cb = combinations.combinations(49, 6)
         cb = str(cb)
-        print('Ilość kombinacji w Lotto: ' + combinations.splitthousands(cb, '.'))
+        print('Ilość kombinacji w:\n')
+        print('Lotto: ' + combinations.splitthousands(cb, '.'))
         cb = combinations.combinations(42, 5)
         cb = str(cb)
-        print('Ilość kombinacji w Mini Lotto: ' + combinations.splitthousands(cb, '.'))
+        print('Mini Lotto: ' + combinations.splitthousands(cb, '.'))
         cb = int(combinations.combinations(80, 10) / combinations.combinations(20, 10))
         cb = str(cb)
-        print('Ilość kombinacji w Multi Multi: ' + combinations.splitthousands(cb, '.'))
+        print('Multi Multi: ' + combinations.splitthousands(cb, '.'))
         input('Wciśnij ENTER: ')
     running2 = True
     while running2:
@@ -93,13 +95,99 @@ def chances(runonce = 0):
     print('-------------------------------')
     running = True
     numsmatched = numsdrawed
+    print('Trafiono:')
     while running:
         try:
             if numsdrawed is not None and numsdrawed in range(start, stop):
+                if gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 10:
+                    win = '250 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 9:
+                    win = '10 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 8:
+                    win = '520 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 7:
+                    win = '140 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 6:
+                    win = '12 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 5:
+                    win = '4 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 10 and numsmatched == 4:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 9:
+                    win = '70 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 8:
+                    win = '2 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 7:
+                    win = '300 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 6:
+                    win = '42 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 5:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 9 and numsmatched == 4:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 8:
+                    win = '22 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 7:
+                    win = '600 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 6:
+                    win = '60 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 5:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 8 and numsmatched == 4:
+                    win = '4 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 7:
+                    win = '6 000 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 6:
+                    win = '200 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 5:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 4:
+                    win = '4 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 7 and numsmatched == 3:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 6:
+                    win = '1 300 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 5:
+                    win = '120 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 4:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 6 and numsmatched == 3:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 5:
+                    win = '700 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 4:
+                    win = '20 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 5 and numsmatched == 3:
+                    win = '4 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 4:
+                    win = '84 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 3:
+                    win = '8 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 4 and numsmatched == 2:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 3 and numsmatched == 3:
+                    win = '54 zł'
+                elif gamename == 'Multi Multi' and numsdrawed == 3 and numsmatched == 2:
+                    win = '2 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 2 and numsmatched == 2:
+                    win = '16 zł'
+
+                if gamename == 'Multi Multi' and numsdrawed == 1 and numsmatched == 1:
+                    win = '4 zł'
+
                 cb = combinations.matched(nums, numsdrawed, numsmatched, machinedrawed)
                 cb = str(cb)
-                print('Trafiono ' + str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.'))
+                print(str(numsmatched) + ': ' + '1:' + combinations.splitthousands(cb,'.') + ' (' + win + ')')
                 numsmatched = numsmatched - 1
+                win = '? zł'
                 if numsmatched == start - 1:
                     running = False
         except:
@@ -116,7 +204,6 @@ def compare_db_file(filename):
     global nums_list, database, matchcount, dbrowcount, dayzero, daylast
     data = []
     database = []
-    #matchcount = 0
     with open(filename, newline = '\n', encoding = 'utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=' ')
         data = [tuple(row) for row in reader]
@@ -127,7 +214,7 @@ def compare_db_file(filename):
             dayzero = data[0][1]
             dbrowcount = len(data)
             if index < len(data)-1:
-                index = index + 1
+                index += 1
                 daylast = data[index][1]
             database = database.split(',')
             list(database)
@@ -138,13 +225,7 @@ def compare_db_file(filename):
             common_nums.sort()
             match = len(common_nums) == len(nums_list)
             if match == True:
-                matchcount = matchcount + 1
-                #print('Ilość dopasowań: ' + str(len(common_nums)))
-                #if matchcount <= 3:
-                    #print('Liczby: ', common_nums)
-                    #print('Padły już w ' + game_name + ' w dniu ' + day + ' r.!')
-                    #print('Wynik losowania: ' + str(database))
-                #input('ENTER')
+                matchcount += 1
     return matchcount, dbrowcount, dayzero, daylast
 
 def get_url(url):
@@ -152,8 +233,13 @@ def get_url(url):
 
     Full URL must be given as an argument.
     '''
+    global workingdir
     full_path = os.path.realpath(__file__)
     workingdir = os.path.dirname(full_path)
+    try:
+        shutil.copy2(workingdir + '/' + filename, workingdir + '/' + filename + '.orig')
+    except Exception:
+        pass
     f = open(workingdir + '/' + filename, 'w')
     for line in urlopen(url):
         line = line.decode('utf-8')
@@ -176,12 +262,16 @@ def db_download(gamealias):
         gamename =  'Multi Multi'
     filename = gamealiases[gamealias]
     try:
-        print('Pobieranie bazy losowań LOTTO...')
+        print('Pobieranie bazy ' + gamename + '...')
         url = ('http://www.mbnet.com.pl/' + filename)
         get_url(url)
-        print('Pobrano bazę losowań ' + gamename + ' :).')
+        print('Baza ' + gamename + ' została pobrana :-).')
     except:
         print('Błąd pobierania bazy losowań ' + gamename + '!')
+        try:
+            shutil.move(workingdir + '/' + filename + '.orig', workingdir + '/' + filename)
+        except Exception:
+            pass
 
 def all_db_download():
     ''' Download all LOTTO databases
@@ -207,9 +297,9 @@ def clear_screen():
 def print_header():
     ''' Prints the app header
     '''
-    print('*******************************')
-    print('* pLotek 2.1 BETA! by bartgee *')
-    print('*******************************')
+    print('**********************************')
+    print('* pLotek 2.2          by bartgee *')
+    print('**********************************')
     print('u - aktualizacja baz losowań')
     print('p - prawdopodobieństwo wygranej')
     print('1. Lotto')
@@ -279,7 +369,6 @@ def game_select():
                 running = False
             elif number_of_draws in range(1, 21):
                 running = False
-            #print('-------------------------------')
         except:
                 print('Wprowadzono błędne dane!')
     return gametype, nums_to_draw, number_of_draws
@@ -323,7 +412,6 @@ def draw_numbers(gametype, nums_to_draw, number_of_draws):
         nums_all = nums_all[:-1]
         print('-------------------------------')
         print('Zakład nr ' + str(draw) + ' dla ' + game_name + ': ' + nums_all)
-        #workingdir = os.getcwd()
         full_path = os.path.realpath(__file__)
         workingdir = os.path.dirname(full_path)
         compare_db_file(workingdir + '/' + gamefile)
@@ -405,8 +493,6 @@ def main():
     draw_or_update()
     draw_numbers(gametype, nums_to_draw, number_of_draws)
     print_footer()
-    #printmatches()
-    #comparetest()
     restart_game()
 
 if __name__ == '__main__':
