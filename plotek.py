@@ -7,7 +7,7 @@
 
 import random, os, platform, sys, csv, shutil
 # importing local modules:
-import combinations
+import combinations, dboperations
 
 try:
     # For Python 3.0 and later
