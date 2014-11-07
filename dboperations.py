@@ -7,6 +7,7 @@
 import sqlite3
 
 def create_db(db_name):
+    #global db
     try:
         db = sqlite3.connect(db_name)
         c = db.cursor()
@@ -33,6 +34,7 @@ def create_db(db_name):
             db.close()
 
 def insert(db_name, table, data_dict):
+    #global db
     try:
         db = sqlite3.connect(db_name)
         c = db.cursor()
@@ -55,14 +57,14 @@ def insert(db_name, table, data_dict):
             db.close()
 
 def main():
-    db = 'test.db'
+    db_name = 'test.db'
     tbl = 'ML'
     #liczby = [1, 2, 3, 4, 5, 6]
     liczby = '1,2,3,4,5,6'
     data = {'id': '999', 'data': '2014.11.07', 'liczby': liczby}
     print('dboperations module')
-    create_db(db)
-    insert(db, tbl, data)
+    create_db(db_name)
+    insert(db_name, tbl, data)
 
 if __name__ == '__main__':
     main()

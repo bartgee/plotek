@@ -5,7 +5,7 @@
 #
 # CHANGELOG moved to external file
 
-import random, os, platform, sys, csv, shutil
+import random, os, platform, sys, csv, shutil, datetime
 # importing local modules:
 import combinations, dboperations
 
@@ -197,6 +197,7 @@ def chances(runonce = 0):
     chances(1)
 
 def export_to_sqlite():
+    t_start = datetime.datetime.now()
     db = dboperations
     db.create_db('lotto.db')
     filename = 'dl_razem.txt'
@@ -206,6 +207,7 @@ def export_to_sqlite():
     index = 0
     for i in data:
         draw_id = data[index][0]
+        draw_id = draw_id[:-1]
         draw_date = data[index][1]
         numbers = data[index][2]
         if index < len(data) - 1:
@@ -217,6 +219,9 @@ def export_to_sqlite():
         data_dict = {'id': draw_id, 'data': draw_date, 'liczby': str(numbers)}
         print(data_dict)
         db.insert('lotto.db', 'DL_RAZEM', data_dict)
+    t_end = datetime.datetime.now()
+    print(t_start.isoformat())
+    print(t_end.isoformat())
 
 def compare_db_file(filename):
     ''' Reads the CSV file with space as a delimiter
