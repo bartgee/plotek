@@ -196,6 +196,28 @@ def chances(runonce = 0):
     clear_screen()
     chances(1)
 
+def export_to_sqlite():
+    db = dboperations
+    db.create_db('lotto.db')
+    filename = 'dl_razem.txt'
+    csv_file = open(filename, newline = '\n', encoding = 'utf-8')
+    reader = csv.reader(csv_file, delimiter=' ')
+    data = [tuple(row) for row in reader]
+    index = 0
+    for i in data:
+        draw_id = data[index][0]
+        draw_date = data[index][1]
+        numbers = data[index][2]
+        if index < len(data) - 1:
+            index += 1
+        numbers = numbers.split(',')
+        list(numbers)
+        numbers = [int(item) for item in numbers]
+        print(numbers)
+        data_dict = {'id': draw_id, 'data': draw_date, 'liczby': str(numbers)}
+        print(data_dict)
+        db.insert('lotto.db', 'DL_RAZEM', data_dict)
+
 def compare_db_file(filename):
     ''' Reads the CSV file with space as a delimiter
         and then compares actual draw with historical draws database.
@@ -317,6 +339,9 @@ def game_select():
     while running:
         try:
             gametype = input('Wybierz grę LOTTO (1,2,3 lub ENTER dla LOTTO): ')
+            if gametype == 'd':
+                running = False
+                return gametype
             if gametype == 'u':
                 running = False
                 return gametype
@@ -356,7 +381,7 @@ def game_select():
         except:
             print('Wprowadzono błędne dane!')
     running = True
-    if gametype == 'u' or gametype == 'p' or gametype == 'q':
+    if gametype == 'd' or gametype == 'u' or gametype == 'p' or gametype == 'q':
         return
     while running:
         try:
@@ -429,6 +454,9 @@ def restart_game():
 def draw_or_update():
     ''' Checks whether the user chose to update drawing databases
     '''
+    if gametype == 'd':
+        export_to_sqlite()
+        sys.exit(0)
     if gametype == 'u':
         clear_screen()
         all_db_download()

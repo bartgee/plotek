@@ -26,6 +26,7 @@ def create_db(db_name):
                     DATA    TEXT,
                     LICZBY  TEXT);''')
     except sqlite3.Error as e:
+        print('Błąd SQLite3: ' + e.args[0])
         print('Błąd utworzenia bazy danych!')
     finally:
         if db:
